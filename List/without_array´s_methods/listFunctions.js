@@ -34,7 +34,7 @@ function isEmpty(list) {
  * @returns {boolean}
  */
 function isFull(list) {
-  return (!isNaN(list[MAX_LENGTH - 1])) ? true : false; //Si el último elemento no es un NaN devuelve false, en caso contrario true
+  return (!isNaN(list[MAX_LENGTH - 1])) ? true : false; //Si el último elemento no es un NaN devuelve true, en caso contrario false
 }
 
 /**
@@ -61,19 +61,11 @@ function size(list) {
 function add(list, elem) {
   var index;
 //Comprobamos que el elemento a añadir es un numero y que la lista no está llena
-  if (!isNaN(elem)) {
-    if (!isFull(list)) {
-      index = size(list);
+  if (isNaN(elem)) throw "The element is not a number";
+  if (isFull(list)) throw "The list is full";
 
-      list[index] = elem;
-    }
-    else {
-      throw "The list is full";
-    }
-  }
-  else {
-    throw "The element is not a number";
-  }
+  index = size(list);
+  list[index] = elem;
 
   return ++index;
 }
@@ -89,29 +81,22 @@ function add(list, elem) {
 function addAt(list, elem, index) {
   var temp, aux;  //Variables para hacer el intercambio
 //Comprobamos que el elemento a añadir es un numero, que la lista no está llena y que el indice no es mayor a la posicion del ultimo elemento
-  if (!isNaN(elem)) {
-    if (!isFull(list)) {
-      if (index < size(list)) {
-        temp = list[index];
-        list[index] = elem;
-
-        while (index < MAX_LENGTH && list[index + 1] !== undefined) { //Recorremos la lista para desplazar los elementos a su nueva posicion
-          aux = list[index + 1];
-          list[index + 1] = temp;
-          temp = aux;
-          index++;
-        }
-      }
-      else {
-        add(list, elem);
-      }
-    }
-    else {
-      throw "The list is full";
+  if (isNaN(elem)) throw "The element is not a number";
+  if (isFull(list)) throw "The list is full";
+  //Si el indice es mayor que el indice del ultimo elemento, añado el elemento a continuación del último
+  if (index < size(list)) {
+    temp = list[index];
+    list[index] = elem;
+    //Recorremos la lista para desplazar los elementos a su nueva posicion
+    while (index < MAX_LENGTH && list[index + 1] !== undefined) {
+      aux = list[index + 1];
+      list[index + 1] = temp;
+      temp = aux;
+      index++;
     }
   }
   else {
-    throw "The element is not a number";
+    add(list, elem);
   }
 
   return ++index;
@@ -125,17 +110,10 @@ function addAt(list, elem, index) {
  */
 function get(list, index) {
   //Comprobamos que el indice es un numero y que no es mayor a la capacidad total
-  if (!isNaN(index)) {
-    if (index <= capacity(list)) {
-      return list[index];
-    }
-    else {
-      throw "The index is higher than capacity";
-    }
-  }
-  else {
-    throw "The index must be a number";
-  }
+  if (isNaN(index)) throw "The index must be a number";
+  if (index >= size(list)) throw "The index is higher than size";
+
+  return list[index];
 }
 
 /**
@@ -146,11 +124,10 @@ function get(list, index) {
 function toString(list) {
   var str = "";
 
-  if (!isEmpty(list)) {
-    //La segunda condición es para cortar el bucle cuando llegue a los elementos que están vacios
-    for (var i = 0; i < MAX_LENGTH && !isNaN(list[i]); i++) {
-      str += list[i] + ",";
-    }
+  if (isEmpty(list)) throw "The list is empty";
+  //La segunda condición es para cortar el bucle cuando llegue a los elementos que están vacios
+  for (var i = 0; i < MAX_LENGTH && !isNaN(list[i]); i++) {
+    str += list[i] + ",";
   }
 
   return str;
@@ -166,20 +143,17 @@ function toString(list) {
 function indexOf(list, elem) {
   var found = false;
 
-  if (!isNaN(elem)) {
-    for (var i = 0; i < MAX_LENGTH && !found; i++) { //Si encuentra el elemento, el bucle se corta
-      found = (elem === list[i]) ? true : false;
-    }
+  if (isNaN(elem)) throw "The element is not a number";
 
-    if (found) {
-      return i - 1;
-    }
-    else {
-      return -1;
-    }
+  for (var i = 0; i < MAX_LENGTH && !found; i++) { //Si encuentra el elemento, el bucle se corta
+    found = (elem === list[i]) ? true : false;
+  }
+
+  if (found) {
+    return i - 1;
   }
   else {
-    throw "The element is not a number";
+    return -1;
   }
 }
 
@@ -193,20 +167,16 @@ function indexOf(list, elem) {
 function lastIndexOf(list, elem) {
   var found = false;
 
-  if (!isNaN(elem)) {
-    for (var i = MAX_LENGTH - 1; i >= 0 && !found; i--) { //Si encuentra el elemento, el bucle se corta
-      found = (elem === list[i]) ? true : false;
-    }
+  if (isNaN(elem)) throw "The element is not a number";
+  for (var i = MAX_LENGTH - 1; i >= 0 && !found; i--) { //Si encuentra el elemento, el bucle se corta
+    found = (elem === list[i]) ? true : false;
+  }
 
-    if (found) {
-      return i + 1;
-    }
-    else {
-      return -1;
-    }
+  if (found) {
+    return i + 1;
   }
   else {
-    throw "The element is not a number";
+    return -1;
   }
 }
 
@@ -224,13 +194,9 @@ function capacity(list) {
  * @param list
  */
 function clear(list) {
-  if (!isEmpty(list)) { //Comprobamos que la lista no está vacia
-    for (var i = 0; i < MAX_LENGTH && !isNaN(list[i]); i++) { //Corta el bucle cuando llega a los elementos NaN
-      list[i] = Number.NaN;
-    }
-  }
-  else {
-    throw "The list is empty";
+  if (isEmpty(list)) throw "The list is empty";  //Comprobamos que la lista no está vacia
+  for (var i = 0; i < MAX_LENGTH && !isNaN(list[i]); i++) { //Corta el bucle cuando llega a los elementos NaN
+    list[i] = Number.NaN;
   }
 }
 
@@ -240,12 +206,9 @@ function clear(list) {
  * @returns {*}
  */
 function firstElement(list) {
-  if (!isEmpty(list)) {   //Comprobamos que la lista no está vacia
-    return list[0];
-  }
-  else {
-    throw "The list is empty";
-  }
+  if (isEmpty(list)) throw "The list is empty"; //Comprobamos que la lista no está vacia
+
+  return list[0];
 }
 
 /**
@@ -254,12 +217,9 @@ function firstElement(list) {
  * @returns {*}
  */
 function lastElement(list) {
-  if (!isEmpty(list)) {   //Comprobamos que la lista no está vacia
-    return list[size(list) - 1];
-  }
-  else {
-    throw "The list is empty";
-  }
+  if (isEmpty(list)) throw "The list is empty";   //Comprobamos que la lista no está vacia
+
+  return list[size(list) - 1];
 }
 
 /**
