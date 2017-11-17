@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta name="author" content="Jose Luis Velasco Cañadas">
+  <title>Ordered-List</title>
+</head>
+<body>
+<h1>Ordered List</h1>
+<label for="element">Element</label><input type="text" name="element" id="element">
+<label for="position">Position</label><input type="text" name="position" id="position"><br>
+
+<input type="button" value="Add" onclick="addElement()">
+<input type="button" value="Get" onclick="getElement()">
+<input type="button" value="Index of" onclick="getIndex()">
+<input type="button" value="Remove" onclick="deleteElement()">
+
+<p id="list"></p> <!--Parrafo para mostrar la lista-->
+<p id="temp"></p> <!--Parrafo para mostrar elementos temporales como puede ser un elemento devuelto-->
+<p id="error"></p> <!--Parrafo para mostrar mensaje de error-->
+
+<script charset="utf-8" src="ordListFunctions.js"></script>
+<script charset="utf-8" src="ordListPageFunctions.js"></script>
+</body>
+</html>
