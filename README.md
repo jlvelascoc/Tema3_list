@@ -26,7 +26,11 @@ Version 1.0.1
 Version 1.1.0
 
   Creado directorio OrderedList
+  
   Creado directorio without_array´s_methods
+  
   Creado fichero ordList.html
+  
   Creado fichero ordListFunctions.js
+  
   Creado fichero ordListPageFunctions.js
