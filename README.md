@@ -41,6 +41,13 @@ Version 1.0.2
 Version 1.2.0
     
     Creado directorio with_array´s_methods
-    Creado fichero List.html
-    Creado fichero ListFunctions.js
-    Creado fichero ListPageFunctions.js
+    Creado fichero list.html
+    Creado fichero listFunctions.js
+    Creado fichero listPageFunctions.js
+
+Version 1.3.0
+    
+    Creado directorio with_array´s_methods
+    Creado fichero ordList.html
+    Creado fichero ordListFunctions.js
+    Creado fichero ordListPageFunctions.js
