@@ -25,12 +25,22 @@ Version 1.0.1
     
 Version 1.1.0
 
-  Creado directorio OrderedList
-  
-  Creado directorio without_array´s_methods
-  
-  Creado fichero ordList.html
-  
-  Creado fichero ordListFunctions.js
-  
-  Creado fichero ordListPageFunctions.js
+    Creado directorio OrderedList
+    Creado directorio without_array´s_methods
+    Creado fichero ordList.html
+    Creado fichero ordListFunctions.js
+    Creado fichero ordListPageFunctions.js
+
+Version 1.0.2
+
+    Modificaciones en listFunctions.js
+    Metodos:
+        remove: Cambio en la forma de gestionar los errores.
+        removeElement: Cambio en la forma de gestionar los errores.
+
+Version 1.2.0
+    
+    Creado directorio with_array´s_methods
+    Creado fichero List.html
+    Creado fichero ListFunctions.js
+    Creado fichero ListPageFunctions.js
