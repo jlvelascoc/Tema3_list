@@ -232,21 +232,13 @@ function lastElement(list) {
 function remove(list, index) {
   var elem;
 //Comprobamos que el indice es un numero y que no es mayor que la capacidad
-  if (!isNaN(index)) {
-    if (index < capacity(list)) {
-      elem = list[index];
+  if (isNaN(index)) throw "The index must be a number";
+  if (index > capacity(list)) throw "The index is higher than capacity";
+  elem = list[index];
 
-      while (index < MAX_LENGTH) {    //Recorremos la lista desplazando los valores a su nueva posicion
-        list[index] = list[index + 1];
-        index++;
-      }
-    }
-    else {
-      throw "The index is higher than capacity";
-    }
-  }
-  else {
-    throw "The index must be a number";
+  while (index < MAX_LENGTH) {    //Recorremos la lista desplazando los valores a su nueva posicion
+    list[index] = list[index + 1];
+    index++;
   }
 
   return elem;
@@ -262,22 +254,18 @@ function remove(list, index) {
 function removeElement(list, elem) {
   var index, erased;
 //Comprobamos que el elemento es un numero
-  if (!isNaN(elem)) {
-    index = indexOf(list, elem);
+  if (isNaN(elem)) throw "The element is not a number";
+  index = indexOf(list, elem);
 //Comprobamos que el elemento se encuentra en la lista
-    if (index !== -1) {
-      while (index < MAX_LENGTH) {
-        list[index] = list[index + 1];
-        index++;
-      }
-      return true;
+  if (index !== -1) {
+    while (index < MAX_LENGTH) {
+      list[index] = list[index + 1];
+      index++;
     }
-    else {
-      return false;
-    }
+    return true;
   }
   else {
-    throw "The element is not a number";
+    return false;
   }
 }
 
@@ -292,18 +280,11 @@ function removeElement(list, elem) {
 function set(list, elem, index) {
   var seted;
 //Comprobamos que el elemento y el indice son números
-  if (!isNaN(elem) && !isNaN(index)) {
-    if (index < capacity(list)) {    //Comprobamos que el indice es menor a la capacidad total
-      seted = list[index];
-      list[index] = elem;
-    }
-    else {
-      throw "The index is higher than capacity";
-    }
-  }
-  else {
-    throw "The element and index must be a number";
-  }
+  if (isNaN(elem) && !isNaN(index)) throw "The element and index must be a number";
+  if (index > capacity(list)) throw "The index is higher than capacity";    //Comprobamos que el indice es menor a la capacidad total
+
+  seted = list[index];
+  list[index] = elem;
 
   return seted;
 }
